@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import Wrapper from "../Helpers/Wrapper";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
 import ErrorModal from "../UI/ErrorModal";
 import classes from './AddUsers.module.css';
 
 const AddUsers = (props) => {
+    const nameInputRef = useRef();
+    const ageInputRef = useRef();
 
     const [eneteredUsername, setUsername] = useState("");
     const [enteredAge, setAge] = useState("");
@@ -40,23 +43,23 @@ const AddUsers = (props) => {
         setAge(event.target.value);
     }
 
-    const modalClickHandler = ()=>{
+    const modalClickHandler = () => {
         setValid(true);
     }
 
     return (
-        <div>
-            {!valid&&<ErrorModal ok={modalClickHandler} title="Error" msg="Error in data."></ErrorModal>}
+        <Wrapper>
+            {!valid && <ErrorModal ok={modalClickHandler} title="Error" msg="Error in data."></ErrorModal>}
             <Card className={classes.input}>
                 <form onSubmit={submitHandler} className={!valid ? classes.invalid : ''} >
                     <label htmlFor="username">Username</label>
-                    <input value={eneteredUsername} onChange={userNameHandler} type="text" id="username"></input>
+                    <input ref={nameInputRef} value={eneteredUsername} onChange={userNameHandler} type="text" id="username"></input>
                     <label htmlFor="age">Age in years</label>
-                    <input value={enteredAge} onChange={ageHandler} type="number" id="age"></input>
+                    <input ref={ageInputRef} value={enteredAge} onChange={ageHandler} type="number" id="age"></input>
                     <Button onClick={submitHandler} type="submit">Add user</Button>
                 </form>
             </Card>
-        </div>
+        </Wrapper>
     );
 }
 

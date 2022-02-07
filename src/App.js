@@ -22,10 +22,10 @@ function App() {
   }
 
   return (
-    <div>
+    <React.Fragment>
       <AddUsers addUser={addUserhandler}></AddUsers>
       <UsersList delete={deleteHandler} users={users}></UsersList>
-    </div>
+    </React.Fragment>
   );
 }
 
